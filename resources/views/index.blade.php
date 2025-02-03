@@ -16,12 +16,16 @@
                         <h3 class="text-3xl font-medium text-gray-700">Tasks</h3>
                         <div class="flex flex-col mt-8">
                             <div>
-                                <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                                <button onclick="openModal('addTaskModal')" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-indigo-700">
                                     Add Task
                                 </button>
-                                <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-                                    Order Tasks
-                                </button>
+                                <x-modal id="addTaskModal" title="Add a Task">
+                                    <p>Ciao</p>
+                                    <button onclick="closeModal('addTaskModal')" class="bg-green-600 text-white px-4 py-2 rounded mt-4">
+                                        Conferma
+                                    </button>
+                                </x-modal>
+
                             </div>
                             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                                 <div
@@ -35,7 +39,7 @@
                                                 <th
                                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                                     Completed</th>
-                                                    <th
+                                                <th
                                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                                     Assignement Date</th>
                                                 <th
@@ -47,29 +51,45 @@
 
                                         <tbody class="bg-white">
                                             @foreach ($tasks as $task)
-                                            <tr class="text-center">
-                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left">
-                                                    <div class="text-sm leading-5 text-gray-900">{{ $task->description }}</div>
-                                                </td>
+                                                <tr class="text-center">
+                                                    <td
+                                                        class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-left">
+                                                        <div class="text-sm leading-5 text-gray-900">
+                                                            {{ $task->description }}</div>
+                                                    </td>
 
-                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                                    <span
-                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{$task->is_completed? 'bg-green-100 text-green-800':'bg-red-100 text-red-800'}}">
-                                                        {{ $task->is_completed ? 'Yes' : 'No' }}
-                                                    </span>
+                                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                        <span
+                                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $task->is_completed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                            {{ $task->is_completed ? 'Yes' : 'No' }}
+                                                        </span>
 
-                                                </td>
+                                                    </td>
 
-                                                <td
-                                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                                    {{ $task->updated_at }}</td>
+                                                    <td
+                                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                                        {{ $task->updated_at }}</td>
 
-                                                <td
-                                                    class="px-6 py-4 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-                                                    <a href="#" class="text-red-600 hover:text-red-900">delete</a>
-                                                    <a href="#" class="text-yellow-600 hover:text-yellow-900">Edit</a>
-                                                </td>
-                                            </tr>
+                                                        <td class="px-6 py-4 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
+                                                            <button onclick="openModal('editTaskModal{{ $task->id }}')" class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">
+                                                                Edit
+                                                            </button>
+                                                            <x-modal id="editTaskModal{{ $task->id }}" title="Edit a Task">
+                                                                <p>Ciao</p>
+                                                                <button onclick="closeModal('editTaskModal{{ $task->id }}')" class="bg-indigo-600 text-white px-4 py-2 rounded mt-4">
+                                                                    Conferma
+                                                                </button>
+                                                            </x-modal>
+                                                            <button onclick="openModal('deleteTaskModal{{ $task->id }}')" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                                                                Delete
+                                                            </button>
+                                                            <x-modal id="deleteTaskModal{{ $task->id }}" title="Are you sure you want to delete the Task?">
+                                                                <button onclick="closeModal('deleteTaskModal{{ $task->id }}')" class="bg-indigo-600 text-white px-4 py-2 rounded mt-4">
+                                                                    Conferma
+                                                                </button>
+                                                            </x-modal>
+                                                        </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
