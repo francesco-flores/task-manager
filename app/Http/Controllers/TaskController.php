@@ -12,7 +12,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::all();
+        return view('index', compact('tasks'));
     }
 
     /**
@@ -28,7 +29,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'description' => 'required|max:255',
+            'is_completed' => 'required',
+        ]);
+
+        Task::create($request->all());
+
+        return redirect()->route('index')
+            ->with('success', 'Task created successfully.');
     }
 
     /**
