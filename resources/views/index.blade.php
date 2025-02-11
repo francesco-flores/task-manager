@@ -121,14 +121,14 @@
                                                                             value="0">
                                                                         <input type="checkbox" name="is_completed"
                                                                             id="is_completed" value="1"
-                                                                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                                            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" {{ $task->is_completed ? 'checked' : '' }}>
                                                                         <span class="ml-2">Completed</span>
                                                                     </label>
                                                                 </div>
                                                                 <div class="mt-4 flex justify-end">
                                                                     <button type="submit"
                                                                         class="bg-indigo-600 text-white px-4 py-2 rounded mt-4">
-                                                                        Conferma
+                                                                        Save
                                                                     </button>
                                                                     <button type="button"
                                                                         onclick="closeModal('editTaskModal{{ $task->id }}')"
