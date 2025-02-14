@@ -28,7 +28,7 @@ class TaskController extends Controller
 
         Task::create([
             'description' => $request->description,
-            'is_completed' => $request->has('is_completed') ? 1 : 0,
+            'is_completed' => $request->boolean('is_completed'),
         ]);
 
         return redirect()->route('index')
